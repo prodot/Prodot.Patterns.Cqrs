@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Prodot.Patterns.Cqrs.EfCore.Abstractions</PackageId>
+    <Title>Prodot.Patterns.Cqrs.EfCore.Abstractions</Title>
+    <Description>Provides base classes for using Prodot.Patterns.Cqrs with EF Core.</Description>
+    <PackageProjectUrl>https://dev.azure.com/prodot-vs/prodot%20-%20Building%20Blocks/_git/Prodot.Patterns.CQRS</PackageProjectUrl>
+    <Authors>Philipp Gerling, Tim Vinkemeier</Authors>
+    <Company>prodot GmbH</Company>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Prodot.Patterns.Cqrs.Abstractions" Version="[1.0.0,2.0.0)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Prodot.Patterns.Cqrs.Abstractions\Prodot.Patterns.Cqrs.Abstractions.csproj" />
+  </ItemGroup>
+  
+</Project>
