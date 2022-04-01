@@ -19,8 +19,9 @@ jobs:
     - name: Extend PackageVersion with build number in Directory.Build.props
       shell: pwsh
       run: |
-        Write-Host ''New version uses build number ${$env:GITHUB_RUN_NUMBER}''
-        (Get-Content Directory.Build.props) -replace ''(<PackageVersion>\d+\.\d+\.\d+\.)(\d+)(</PackageVersion>)'', ''${1}${$env:GITHUB_RUN_NUMBER}${3}'' | Out-File Directory.Build.props
+        Write-Host New version uses build number $env:GITHUB_RUN_NUMBER
+        $replacement="<PackageVersion>`$2.$($env:GITHUB_RUN_NUMBER)</PackageVersion>"
+        (Get-Content Directory.Build.props) -replace '(<PackageVersion>)(\d+\.\d+\.\d+)(\.\d+)(</PackageVersion>)', $replacement | Out-File Directory.Build.props
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
