@@ -29,10 +29,13 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal -c Release
     - name: Pack
-      run: dotnet pack --no-build -c Release
+      run: dotnet pack --no-build -c Release -o out /p:VersionSuffix=${GITHUB_RUN_NUMBER}
     - name: Upload Packages as artifacts
       uses: actions/upload-artifact@v3.0.0
       with:
         name: packages
         path: '**/*.nupkg'
-      
+    - name: Push to nuget.org
+      run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${NUGET_API_KEY}
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
