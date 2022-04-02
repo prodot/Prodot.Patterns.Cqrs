@@ -4,7 +4,7 @@
     <PackageId>Prodot.Patterns.Cqrs.MicrosoftExtensionsDependencyInjection</PackageId>
     <Title>Prodot.Patterns.Cqrs.MicrosoftExtensionsDependencyInjection</Title>
     <Description>Provides extension methods for using Prodot.Patterns.Cqrs with the Microsoft.Extensions.DependencyInjection DI container.</Description>
-    <PackageProjectUrl>https://dev.azure.com/prodot-vs/prodot%20-%20Building%20Blocks/_git/Prodot.Patterns.CQRS</PackageProjectUrl>
+    <PackageProjectUrl>https://www.nuget.org/packages/Prodot.Patterns.Cqrs.MicrosoftExtensionsDependencyInjection</PackageProjectUrl>
     <Authors>Philipp Gerling, Tim Vinkemeier</Authors>
     <Company>prodot GmbH</Company>
   </PropertyGroup>

@@ -4,7 +4,7 @@
     <PackageId>Prodot.Patterns.Cqrs.EfCore.Abstractions</PackageId>
     <Title>Prodot.Patterns.Cqrs.EfCore.Abstractions</Title>
     <Description>Provides base classes for using Prodot.Patterns.Cqrs with EF Core.</Description>
-    <PackageProjectUrl>https://dev.azure.com/prodot-vs/prodot%20-%20Building%20Blocks/_git/Prodot.Patterns.CQRS</PackageProjectUrl>
+    <PackageProjectUrl>https://www.nuget.org/packages/Prodot.Patterns.Cqrs.EfCore.Abstractions</PackageProjectUrl>
     <Authors>Philipp Gerling, Tim Vinkemeier</Authors>
     <Company>prodot GmbH</Company>
   </PropertyGroup>
