@@ -10,8 +10,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <DocumentationFile>bin\docs\$(MSBuildProjectName).xml</DocumentationFile>
-    <PackageIconUrl>https://www.nuget.org/profiles/prodot/avatar</PackageIconUrl>
-    <PackageLicenseUrl>https://github.com/prodot/Prodot.Patterns.Cqrs/blob/main/LICENSE</PackageLicenseUrl>
+    <PackageIcon>prodot-logo.png</PackageIcon>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/prodot/Prodot.Patterns.Cqrs</PackageProjectUrl>
     <PackageTags>prodot patterns cqrs</PackageTags>
   </PropertyGroup>
