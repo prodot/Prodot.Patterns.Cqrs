@@ -4,7 +4,7 @@
     <PackageId>Prodot.Patterns.Cqrs.EfCore</PackageId>
     <Title>Prodot.Patterns.Cqrs.EfCore</Title>
     <Description>Provides base classes for using Prodot.Patterns.Cqrs with EF Core.</Description>
-    <PackageProjectUrl>https://dev.azure.com/prodot-vs/prodot%20-%20Building%20Blocks/_git/Prodot.Patterns.CQRS</PackageProjectUrl>
+    <PackageProjectUrl>https://www.nuget.org/packages/Prodot.Patterns.Cqrs.EfCore</PackageProjectUrl>
     <Authors>Philipp Gerling, Tim Vinkemeier</Authors>
     <Company>prodot GmbH</Company>
   </PropertyGroup>
@@ -12,7 +12,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
-    <PackageReference Include="Prodot.Patterns.Cqrs.EfCore.Abstractions" Version="[1.0.0,2.0.0)" />
+    <PackageReference Include="Prodot.Patterns.Cqrs.EfCore.Abstractions" Version="[6.0.0,7.0.0)" />
   </ItemGroup>
 
   <ItemGroup>

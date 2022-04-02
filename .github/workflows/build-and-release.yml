@@ -1,0 +1,42 @@
+name: .NET
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build & Publish Solution
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Extend PackageVersion with build number in Directory.Build.props
+      shell: pwsh
+      run: |
+        Write-Host New version uses build number $env:GITHUB_RUN_NUMBER
+        $replacement="<PackageVersion>`$2.$($env:GITHUB_RUN_NUMBER)</PackageVersion>"
+        (Get-Content Directory.Build.props) -replace '(<PackageVersion>)(\d+\.\d+\.\d+)(\.\d+)(</PackageVersion>)', $replacement | Out-File Directory.Build.props
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore -c Release
+    - name: Test
+      run: dotnet test --no-build --verbosity normal -c Release
+    - name: Pack
+      run: dotnet pack --no-build -c Release -o out /p:VersionSuffix=${GITHUB_RUN_NUMBER}
+    - name: Upload Packages as artifacts
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: packages
+        path: '**/*.nupkg'
+    - name: Push to nuget.org
+      if: github.ref == 'refs/heads/main'
+      run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${NUGET_API_KEY}
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
