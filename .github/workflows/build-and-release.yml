@@ -36,6 +36,7 @@ jobs:
         name: packages
         path: '**/*.nupkg'
     - name: Push to nuget.org
+      if: github.ref == 'refs/heads/main'
       run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${NUGET_API_KEY}
       env:
         NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
