@@ -1,10 +1,12 @@
 # Prodot.Patterns.Cqrs
 
+![Nuget](https://img.shields.io/nuget/v/Prodot.Patterns.Cqrs)
+[![Build](https://github.com/prodot/Prodot.Patterns.Cqrs/actions/workflows/build-and-release.yml/badge.svg?branch=main)](https://github.com/prodot/Prodot.Patterns.Cqrs/actions/workflows/build-and-release.yml)
+
 ## Introduction
 
 Prodot.Patterns.Cqrs is a set of libraries that aim to ease the implementation of a CQRS data access and logic pattern.
 In it's implementation details, it is similar to a Mediator pattern or the request processing pipeline of ASP.Net Core.
-This was initially used in the ASS Service Assistant project.
 
 ## Getting Started
 
