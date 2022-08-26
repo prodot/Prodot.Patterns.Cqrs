@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <PackageId>Prodot.Patterns.Cqrs.MicrosoftExtensionsDependencyInjection</PackageId>
@@ -16,6 +16,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Prodot.Patterns.Cqrs\Prodot.Patterns.Cqrs.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="AsyncFixer" Version="1.6.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>
