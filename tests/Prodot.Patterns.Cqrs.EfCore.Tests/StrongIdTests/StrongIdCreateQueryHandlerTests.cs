@@ -1,28 +1,28 @@
-﻿namespace Prodot.Patterns.Cqrs.EfCore.Tests;
+﻿namespace Prodot.Patterns.Cqrs.EfCore.Tests.StrongIdTests;
 
-public class CreateQueryHandlerTests : EfCoreTestBase
+public class StrongIdCreateQueryHandlerTests : EfCoreTestBase
 {
     [Fact]
     public async Task RunQueryAsync_CreatesModelSuccessfully()
     {
         // Arrange
-        var model = new TestModel
+        var model = new TestModelStrongId
         {
-            Id = TestModelId.From(0),
+            Id = TestModelStrongId.Identifier.From(0),
             StringProperty = "Bla"
         };
-        var query = new TestModelCreateQuery
+        var query = new TestModelStrongIdCreateQuery
         {
             ModelToCreate = model,
         };
-        var subjectUnderTest = new TestModelCreateQueryHandler(Mapper, ContextFactory);
+        var subjectUnderTest = new TestModelStrongIdCreateQueryHandler(Mapper, ContextFactory);
 
         // Act
         var result = await subjectUnderTest.RunQueryAsync(query, default);
 
         // Assert
         result.IsSome.Should().BeTrue("because the creation should be successful");
-        var entities = Context.Entities.ToList();
+        var entities = Context.StrongIdEntities.ToList();
         entities.Should().HaveCount(1);
         entities[0].StringProperty.Should().Be("Bla");
     }

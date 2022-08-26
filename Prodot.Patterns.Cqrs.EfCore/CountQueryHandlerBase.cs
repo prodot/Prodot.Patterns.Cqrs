@@ -1,11 +1,11 @@
 ﻿namespace Prodot.Patterns.Cqrs.EfCore;
 
-public abstract class CountQueryHandlerBase<TQuery, TModel, TIdentifier, TIdentifierValue, TContext, TEntity> : IQueryHandler<TQuery, int>
+public abstract class CountQueryHandlerBase<TQuery, TModel, TIdentifier, TIdentifierValue, TContext, TEntity, TEntityIdentifier> : IQueryHandler<TQuery, int>
     where TQuery : CountQuery<TModel, TIdentifier, TIdentifierValue, TQuery>
     where TModel : ModelBase<TIdentifier, TIdentifierValue>
     where TIdentifier : Identifier<TIdentifierValue, TIdentifier>, new()
     where TContext : DbContext
-    where TEntity : class, IIdentifiableEntity<TIdentifierValue>
+    where TEntity : class, IIdentifiableEntity<TEntityIdentifier>
 {
     private readonly IDbContextFactory<TContext> _contextFactory;
 

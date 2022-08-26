@@ -1,11 +1,11 @@
 ﻿namespace Prodot.Patterns.Cqrs.EfCore;
 
-public abstract class ListOfModelQueryHandlerBase<TQuery, TModel, TIdentifier, TIdentifierValue, TContext, TEntity> : IQueryHandler<TQuery, IReadOnlyList<TModel>>
+public abstract class ListOfModelQueryHandlerBase<TQuery, TModel, TIdentifier, TIdentifierValue, TContext, TEntity, TEntityIdentifier> : IQueryHandler<TQuery, IReadOnlyList<TModel>>
     where TQuery : ListOfModelQuery<TModel, TIdentifier, TIdentifierValue, TQuery>
     where TModel : ModelBase<TIdentifier, TIdentifierValue>
     where TIdentifier : Identifier<TIdentifierValue, TIdentifier>, new()
     where TContext : DbContext
-    where TEntity : class, IIdentifiableEntity<TIdentifierValue>
+    where TEntity : class, IIdentifiableEntity<TEntityIdentifier>
 {
     private readonly IDbContextFactory<TContext> _contextFactory;
     private readonly IMapper _mapper;
@@ -26,7 +26,7 @@ public abstract class ListOfModelQueryHandlerBase<TQuery, TModel, TIdentifier, T
 
             if (query.Ids.IsSome)
             {
-                var ids = query.Ids.Get().Select(id => id.Value).Distinct().ToList();
+                var ids = query.Ids.Get().Select(_mapper.Map<TEntityIdentifier>).Distinct().ToList();
                 databaseQuery = databaseQuery
                     .Where(e => ids.Contains(e.Id));
             }

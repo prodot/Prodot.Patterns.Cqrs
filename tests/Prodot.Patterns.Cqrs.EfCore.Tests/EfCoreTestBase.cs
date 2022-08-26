@@ -26,6 +26,13 @@ public abstract class EfCoreTestBase : IDisposable
                     .ConvertUsing((tmid, _) => tmid.Value);
                 o.CreateMap<int, TestModelId>()
                     .ConvertUsing((id, _) => TestModelId.From(id));
+
+                o.CreateMap<TestModelStrongId, TestEntityStrongId>().ReverseMap();
+                o.CreateMap<TestEntityStrongId, TestEntityStrongId>();
+                o.CreateMap<TestModelStrongId.Identifier, TestEntityStrongId.Identifier>()
+                    .ConvertUsing((tmid, _) => new TestEntityStrongId.Identifier(tmid.Value));
+                o.CreateMap<TestEntityStrongId.Identifier, TestModelStrongId.Identifier>()
+                    .ConvertUsing((id, _) => TestModelStrongId.Identifier.From(id.Value));
             })
             .CreateMapper();
 
