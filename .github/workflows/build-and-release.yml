@@ -16,13 +16,21 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
     - name: Extend PackageVersion with build number in Directory.Build.props
       shell: pwsh
       run: |
         Write-Host New version uses build number $env:GITHUB_RUN_NUMBER
         $replacement="<PackageVersion>`$2.$($env:GITHUB_RUN_NUMBER)</PackageVersion>"
         (Get-Content Directory.Build.props) -replace '(<PackageVersion>)(\d+\.\d+\.\d+)(\.\d+)(</PackageVersion>)', $replacement | Out-File Directory.Build.props
+    - name: Extend PackageVersion with beta tag in Directory.Build.props
+      if: github.ref != 'refs/heads/main'
+      shell: pwsh
+      run: |
+        Write-Host Adding beta tag
+        $date = Get-Date -Format yyyyMMddHHmmss
+        $replacement="<PackageVersion>`$2-beta$($date)</PackageVersion>"
+        (Get-Content Directory.Build.props) -replace '(<PackageVersion>)(\d+\.\d+\.\d+.\d+)(</PackageVersion>)', $replacement | Out-File Directory.Build.props
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
@@ -37,7 +45,6 @@ jobs:
         name: packages
         path: '**/*.nupkg'
     - name: Push to nuget.org
-      if: github.ref == 'refs/heads/main'
       run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${NUGET_API_KEY}
       env:
         NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
