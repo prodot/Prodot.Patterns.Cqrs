@@ -17,6 +17,7 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 7.0.x
+        include-prerelease: true
     - name: Extend PackageVersion with build number in Directory.Build.props
       shell: pwsh
       run: |
