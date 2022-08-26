@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)prodot-Default.ruleset</CodeAnalysisRuleSet>
-    <VersionPrefix>6.0.0</VersionPrefix>
-    <PackageVersion>6.0.0.0</PackageVersion>
+    <VersionPrefix>7.0.0</VersionPrefix>
+    <PackageVersion>7.0.0.0</PackageVersion>
     <TargetFramework>net6.0</TargetFramework>
     <Deterministic>true</Deterministic>
     <LangVersion>10.0</LangVersion>
