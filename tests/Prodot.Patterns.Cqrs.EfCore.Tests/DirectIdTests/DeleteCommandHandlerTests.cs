@@ -1,4 +1,4 @@
-﻿namespace Prodot.Patterns.Cqrs.EfCore.Tests;
+﻿namespace Prodot.Patterns.Cqrs.EfCore.Tests.DirectIdTests;
 
 public class DeleteCommandHandlerTests : EfCoreTestBase
 {
@@ -31,7 +31,7 @@ public class DeleteCommandHandlerTests : EfCoreTestBase
         {
             Id = TestModelId.From(entity2.Id)
         };
-        var subjectUnderTest = new TestModelDeleteCommandHandler(ContextFactory);
+        var subjectUnderTest = new TestModelDeleteCommandHandler(Mapper, ContextFactory);
 
         // Act
         var result = await subjectUnderTest.RunQueryAsync(query, default);

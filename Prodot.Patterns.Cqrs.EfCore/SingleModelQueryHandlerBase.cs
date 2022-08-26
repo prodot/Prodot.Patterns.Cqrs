@@ -1,11 +1,11 @@
 ﻿namespace Prodot.Patterns.Cqrs.EfCore;
 
-public abstract class SingleModelQueryHandlerBase<TQuery, TModel, TIdentifier, TIdentifierValue, TContext, TEntity> : IQueryHandler<TQuery, TModel>
+public abstract class SingleModelQueryHandlerBase<TQuery, TModel, TIdentifier, TIdentifierValue, TContext, TEntity, TEntityIdentifier> : IQueryHandler<TQuery, TModel>
     where TQuery : SingleModelQuery<TModel, TIdentifier, TIdentifierValue, TQuery>
     where TModel : ModelBase<TIdentifier, TIdentifierValue>
     where TIdentifier : Identifier<TIdentifierValue, TIdentifier>, new()
     where TContext : DbContext
-    where TEntity : class, IIdentifiableEntity<TIdentifierValue>
+    where TEntity : class, IIdentifiableEntity<TEntityIdentifier>
 {
     private readonly IDbContextFactory<TContext> _contextFactory;
     private readonly IMapper _mapper;
@@ -22,10 +22,11 @@ public abstract class SingleModelQueryHandlerBase<TQuery, TModel, TIdentifier, T
     {
         using (var context = await _contextFactory.CreateDbContextAsync(cancellationToken).ConfigureAwait(false))
         {
+            var entityId = _mapper.Map<TEntityIdentifier>(query.Id);
             var databaseQuery = AddIncludes(context.Set<TEntity>().AsNoTracking());
 
             var entity = await databaseQuery
-               .FirstOrDefaultAsync(cp => cp.Id!.Equals(query.Id.Value), cancellationToken)
+               .FirstOrDefaultAsync(cp => cp.Id!.Equals(entityId), cancellationToken)
                .ConfigureAwait(false);
 
             return entity == null ? Option.None : Option.From(_mapper.Map<TModel>(entity));

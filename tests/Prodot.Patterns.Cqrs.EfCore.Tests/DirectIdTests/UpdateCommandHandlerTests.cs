@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Prodot.Patterns.Cqrs.EfCore.Tests;
+namespace Prodot.Patterns.Cqrs.EfCore.Tests.DirectIdTests;
 
 public class UpdateCommandHandlerTests : EfCoreTestBase
 {

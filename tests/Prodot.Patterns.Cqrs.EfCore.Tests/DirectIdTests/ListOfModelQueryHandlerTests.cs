@@ -1,4 +1,4 @@
-﻿namespace Prodot.Patterns.Cqrs.EfCore.Tests;
+﻿namespace Prodot.Patterns.Cqrs.EfCore.Tests.DirectIdTests;
 
 public class ListOfModelQueryHandlerTests : EfCoreTestBase
 {

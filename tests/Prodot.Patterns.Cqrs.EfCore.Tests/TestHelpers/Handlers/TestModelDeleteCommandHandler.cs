@@ -1,14 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
 
-using Prodot.Patterns.Cqrs.EfCore.Tests.TestHelpers.Context;
-using Prodot.Patterns.Cqrs.EfCore.Tests.TestHelpers.Queries;
+using Microsoft.EntityFrameworkCore;
 
 namespace Prodot.Patterns.Cqrs.EfCore.Tests.TestHelpers.Handlers;
 
-public class TestModelDeleteCommandHandler : DeleteCommandHandlerBase<TestModelDeleteCommand, TestModel, TestModelId, int, TestDbContext, TestEntity>
+public class TestModelDeleteCommandHandler
+    : DeleteCommandHandlerBase<TestModelDeleteCommand, TestModel, TestModelId, int, TestDbContext, TestEntity, int>
 {
-    public TestModelDeleteCommandHandler(IDbContextFactory<TestDbContext> contextFactory)
-        : base(contextFactory)
+    public TestModelDeleteCommandHandler(IMapper mapper, IDbContextFactory<TestDbContext> contextFactory)
+        : base(mapper, contextFactory)
     {
     }
 }

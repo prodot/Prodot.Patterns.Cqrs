@@ -1,11 +1,11 @@
 ﻿namespace Prodot.Patterns.Cqrs.EfCore;
 
-public abstract class CreateQueryHandlerBase<TQuery, TModel, TIdentifier, TIdentifierValue, TContext, TEntity> : IQueryHandler<TQuery, TIdentifier>
+public abstract class CreateQueryHandlerBase<TQuery, TModel, TIdentifier, TIdentifierValue, TContext, TEntity, TEntityIdentifier> : IQueryHandler<TQuery, TIdentifier>
     where TQuery : CreateQuery<TModel, TIdentifier, TIdentifierValue, TQuery>
     where TModel : ModelBase<TIdentifier, TIdentifierValue>
     where TIdentifier : Identifier<TIdentifierValue, TIdentifier>, new()
     where TContext : DbContext
-    where TEntity : class, IIdentifiableEntity<TIdentifierValue>
+    where TEntity : class, IIdentifiableEntity<TEntityIdentifier>
 {
     private readonly IDbContextFactory<TContext> _contextFactory;
     private readonly IMapper _mapper;
@@ -32,7 +32,7 @@ public abstract class CreateQueryHandlerBase<TQuery, TModel, TIdentifier, TIdent
             await context.Set<TEntity>().AddAsync(entity, cancellationToken).ConfigureAwait(false);
             await context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
-            return Identifier<TIdentifierValue, TIdentifier>.From(entity.Id);
+            return _mapper.Map<TIdentifier>(entity.Id);
         }
     }
 

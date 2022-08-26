@@ -1,9 +1,9 @@
-﻿namespace Prodot.Patterns.Cqrs.EfCore.Tests;
+﻿namespace Prodot.Patterns.Cqrs.EfCore.Tests.DirectIdTests;
 
-public class CountQueryHandlerTests : EfCoreTestBase
+public class SingleModelQueryHandlerTests : EfCoreTestBase
 {
     [Fact]
-    public async Task RunQueryAsync_ReturnsCorrectCount()
+    public async Task RunQueryAsync_RetrievesEntityCorrectly()
     {
         // Arrange
         var entity1 = new TestEntity
@@ -27,14 +27,18 @@ public class CountQueryHandlerTests : EfCoreTestBase
         Context.Entities.Add(entity3);
         Context.SaveChanges();
 
-        var query = new TestModelCountQuery();
-        var subjectUnderTest = new TestModelCountQueryHandler(ContextFactory);
+        var query = new TestModelQuery
+        {
+            Id = TestModelId.From(entity2.Id)
+        };
+        var subjectUnderTest = new TestModelQueryHandler(Mapper, ContextFactory);
 
         // Act
         var result = await subjectUnderTest.RunQueryAsync(query, default);
 
         // Assert
-        result.IsSome.Should().BeTrue("because the query should be successful");
-        result.Get().Should().Be(3);
+        result.IsSome.Should().BeTrue("because the retrieval should be successful");
+        result.Get().Id.Should().Be(TestModelId.From(entity2.Id));
+        result.Get().StringProperty.Should().Be("Bla2");
     }
 }
